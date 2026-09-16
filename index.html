@@ -1,138 +1,186 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Image Metadata Viewer - Professional EXIF Tool</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <div id="loadingOverlay" class="loading-overlay hidden">
-        <div class="loading-spinner"></div>
-        <p>Reading metadata...</p>
+      <div class="loading-spinner"></div>
+      <p>Reading metadata...</p>
     </div>
 
     <div class="container">
-        <header class="header">
-            <div class="logo">
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                    <rect width="40" height="40" rx="8" fill="url(#gradient)"/>
-                    <path d="M20 12L24 16H22V24H18V16H16L20 12Z" fill="white"/>
-                    <rect x="12" y="26" width="16" height="2" rx="1" fill="white"/>
-                    <defs>
-                        <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
-                            <stop offset="0%" style="stop-color:#2563eb"/>
-                            <stop offset="100%" style="stop-color:#7c3aed"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
-                <div>
-                    <h1>Metadata Viewer</h1>
-                    <p class="subtitle">Professional EXIF Analysis Tool</p>
-                </div>
-            </div>
-        </header>
-
-        <section class="upload-section" id="uploadSection">
-            <div class="upload-container">
-                <div class="upload-area" id="uploadArea">
-                    <svg class="upload-icon" width="64" height="64" viewBox="0 0 64 64" fill="none">
-                        <circle cx="32" cy="32" r="30" stroke="#2563eb" stroke-width="2" stroke-dasharray="4 4"/>
-                        <path d="M32 20V44M20 32H44" stroke="#2563eb" stroke-width="3" stroke-linecap="round"/>
-                    </svg>
-                    <h2>Upload Your Image</h2>
-                    <p class="upload-description">Drag and drop or click to browse</p>
-                    <p class="upload-formats">Supports: JPG, PNG, HEIC, WebP, TIFF</p>
-                    <input type="file" id="fileInput" accept="image/*" hidden>
-                </div>
-                <div class="security-badge">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                        <path d="M8 1L3 3V7C3 10.5 5.5 13.5 8 14C10.5 13.5 13 10.5 13 7V3L8 1Z" stroke="#10b981" stroke-width="1.5" fill="none"/>
-                        <path d="M6 8L7.5 9.5L10 7" stroke="#10b981" stroke-width="1.5" stroke-linecap="round"/>
-                    </svg>
-                    <span>100% Private - Processed locally</span>
-                </div>
-            </div>
-        </section>
-
-        <div id="contentArea" class="content-area hidden">
-            <div class="quick-actions">
-                <button class="btn btn-secondary" id="newImageBtn">
-                    <svg width="16" height="16" fill="currentColor"><path d="M8 2C8.55 2 9 2.45 9 3V7H13C13.55 7 14 7.45 14 8C14 8.55 13.55 9 13 9H9V13C9 13.55 8.55 14 8 14C7.45 14 7 13.55 7 13V9H3C2.45 9 2 8.55 2 8C2 7.45 2.45 7 3 7H7V3C7 2.45 7.45 2 8 2Z"/></svg>
-                    New Image
-                </button>
-                <button class="btn btn-primary" id="downloadOriginalBtn">
-                    <svg width="16" height="16" fill="currentColor"><path d="M8 12L3 7H6V2H10V7H13L8 12ZM2 13H14V15H2V13Z"/></svg>
-                    Download Original
-                </button>
-                <button class="btn btn-danger" id="removeMetadataBtn">
-                    <svg width="16" height="16" fill="currentColor"><path d="M5 2V1H11V2H14V4H2V2H5ZM3 5H13L12 14H4L3 5Z"/></svg>
-                    Remove Metadata
-                </button>
-            </div>
-
-            <div class="main-grid">
-                <div class="preview-section">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Image Preview</h3>
-                            <span class="badge" id="processingTime">-</span>
-                        </div>
-                        <div class="image-preview-container">
-                            <img id="previewImage" alt="Preview">
-                        </div>
-                        <div class="image-details">
-                            <div class="detail-row"><span class="detail-label">Filename</span><span class="detail-value" id="fileName">-</span></div>
-                            <div class="detail-row"><span class="detail-label">Size</span><span class="detail-value" id="fileSize">-</span></div>
-                            <div class="detail-row"><span class="detail-label">Dimensions</span><span class="detail-value" id="dimensions">-</span></div>
-                            <div class="detail-row"><span class="detail-label">Type</span><span class="detail-value" id="fileType">-</span></div>
-                        </div>
-                    </div>
-
-                    <div class="card hidden" id="gpsCard">
-                        <div class="card-header">
-                            <h3>📍 GPS Location</h3>
-                        </div>
-                        <div id="gpsContent"></div>
-                    </div>
-                </div>
-
-                <div class="metadata-section">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>📷 Camera & Settings</h3>
-                            <span class="badge badge-count" id="cameraCount">0</span>
-                        </div>
-                        <div class="metadata-grid" id="cameraInfo">
-                            <div class="no-data">No camera data</div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>🕐 Date & Time</h3>
-                            <span class="badge badge-count" id="dateCount">0</span>
-                        </div>
-                        <div class="metadata-grid" id="dateInfo">
-                            <div class="no-data">No date data</div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>📋 All EXIF Metadata</h3>
-                            <span class="badge badge-count" id="totalCount">0</span>
-                        </div>
-                        <div class="metadata-scroll" id="allMetadata">
-                            <div class="no-data">No metadata</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <header class="header">
+        <div class="logo">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <rect width="40" height="40" rx="8" fill="url(#gradient)" />
+            <path d="M20 12L24 16H22V24H18V16H16L20 12Z" fill="white" />
+            <rect x="12" y="26" width="16" height="2" rx="1" fill="white" />
+            <defs>
+              <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                <stop offset="0%" style="stop-color: #2563eb" />
+                <stop offset="100%" style="stop-color: #7c3aed" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div>
+            <h1>Metadata Viewer</h1>
+            <p class="subtitle">Professional EXIF Analysis Tool</p>
+          </div>
         </div>
+      </header>
+
+      <section class="upload-section" id="uploadSection">
+        <div class="upload-container">
+          <div class="upload-area" id="uploadArea">
+            <svg
+              class="upload-icon"
+              width="64"
+              height="64"
+              viewBox="0 0 64 64"
+              fill="none"
+            >
+              <circle
+                cx="32"
+                cy="32"
+                r="30"
+                stroke="#2563eb"
+                stroke-width="2"
+                stroke-dasharray="4 4"
+              />
+              <path
+                d="M32 20V44M20 32H44"
+                stroke="#2563eb"
+                stroke-width="3"
+                stroke-linecap="round"
+              />
+            </svg>
+            <h2>Upload Your Image</h2>
+            <p class="upload-description">Drag and drop or click to browse</p>
+            <p class="upload-formats">Supports: JPG, PNG, HEIC, WebP, TIFF</p>
+            <input type="file" id="fileInput" accept="image/*" hidden />
+          </div>
+          <div class="security-badge">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M8 1L3 3V7C3 10.5 5.5 13.5 8 14C10.5 13.5 13 10.5 13 7V3L8 1Z"
+                stroke="#10b981"
+                stroke-width="1.5"
+                fill="none"
+              />
+              <path
+                d="M6 8L7.5 9.5L10 7"
+                stroke="#10b981"
+                stroke-width="1.5"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span>100% Private - Processed locally</span>
+          </div>
+        </div>
+      </section>
+
+      <div id="contentArea" class="content-area hidden">
+        <div class="quick-actions">
+          <button class="btn btn-secondary" id="newImageBtn">
+            <svg width="16" height="16" fill="currentColor">
+              <path
+                d="M8 2C8.55 2 9 2.45 9 3V7H13C13.55 7 14 7.45 14 8C14 8.55 13.55 9 13 9H9V13C9 13.55 8.55 14 8 14C7.45 14 7 13.55 7 13V9H3C2.45 9 2 8.55 2 8C2 7.45 2.45 7 3 7H7V3C7 2.45 7.45 2 8 2Z"
+              />
+            </svg>
+            New Image
+          </button>
+          <button class="btn btn-primary" id="downloadOriginalBtn">
+            <svg width="16" height="16" fill="currentColor">
+              <path d="M8 12L3 7H6V2H10V7H13L8 12ZM2 13H14V15H2V13Z" />
+            </svg>
+            Download Original
+          </button>
+          <button class="btn btn-danger" id="removeMetadataBtn">
+            <svg width="16" height="16" fill="currentColor">
+              <path d="M5 2V1H11V2H14V4H2V2H5ZM3 5H13L12 14H4L3 5Z" />
+            </svg>
+            Remove Metadata
+          </button>
+        </div>
+
+        <div class="main-grid">
+          <div class="preview-section">
+            <div class="card">
+              <div class="card-header">
+                <h3>Image Preview</h3>
+                <span class="badge" id="processingTime">-</span>
+              </div>
+              <div class="image-preview-container">
+                <img id="previewImage" alt="Preview" />
+              </div>
+              <div class="image-details">
+                <div class="detail-row">
+                  <span class="detail-label">Filename</span
+                  ><span class="detail-value" id="fileName">-</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Size</span
+                  ><span class="detail-value" id="fileSize">-</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Dimensions</span
+                  ><span class="detail-value" id="dimensions">-</span>
+                </div>
+                <div class="detail-row">
+                  <span class="detail-label">Type</span
+                  ><span class="detail-value" id="fileType">-</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card hidden" id="gpsCard">
+              <div class="card-header">
+                <h3>📍 GPS Location</h3>
+              </div>
+              <div id="gpsContent"></div>
+            </div>
+          </div>
+
+          <div class="metadata-section">
+            <div class="card">
+              <div class="card-header">
+                <h3>📷 Camera & Settings</h3>
+                <span class="badge badge-count" id="cameraCount">0</span>
+              </div>
+              <div class="metadata-grid" id="cameraInfo">
+                <div class="no-data">No camera data</div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3>🕐 Date & Time</h3>
+                <span class="badge badge-count" id="dateCount">0</span>
+              </div>
+              <div class="metadata-grid" id="dateInfo">
+                <div class="no-data">No date data</div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3>📋 All EXIF Metadata</h3>
+                <span class="badge badge-count" id="totalCount">0</span>
+              </div>
+              <div class="metadata-scroll" id="allMetadata">
+                <div class="no-data">No metadata</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/exifreader@4.14.0/dist/exif-reader.js"></script>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
