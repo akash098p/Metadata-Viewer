@@ -10,6 +10,8 @@ Everything runs locally in your browser.
 ![Runtime](https://img.shields.io/badge/runtime-browser%20only-2563eb?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-f59e0b?style=flat-square)
 
+---
+
 ## 🤔 Why Metadata Viewer?
 
 Metadata can reveal camera settings, timestamps, locations, authors, software, document history, and more. Metadata Viewer gives you a quick way to inspect that information before sharing a file, without sending the file to a third-party service.
@@ -20,6 +22,8 @@ Metadata can reveal camera settings, timestamps, locations, authors, software, d
 - **No build pipeline required**: the app is a small static web project.
 
 👉 [Live Preview](https://akash098p.github.io/Metadata-Viewer/)
+
+---
 
 ## 🛠️ What you can do
 
@@ -33,6 +37,8 @@ Metadata can reveal camera settings, timestamps, locations, authors, software, d
 | Clean | Remove supported EXIF/XMP/IPTC metadata from images and download a cleaned copy |
 | Compare | Keep the original file available for download while inspecting its metadata |
 | Adapt | Use the responsive interface on desktop or mobile, with light and dark themes |
+
+---
 
 ## 📦 Supported formats
 
@@ -55,6 +61,8 @@ ZIP, JAR, EPUB, DOCX, XLSX, RAR, 7-Zip, GZIP, TAR, ISO9660, CPIO, RPM, CramFS, Z
 ### 🔤 Fonts and executables
 
 OpenType, TrueType, WOFF, WOFF2, PE files such as EXE/DLL, ELF, WebAssembly, NE, LX, and CHM.
+
+---
 
 ## 🚀 Quick start
 
@@ -87,6 +95,8 @@ python -m http.server 8000
 
 For simple use, opening `index.html` directly may work in your browser, although a local server is more reliable for browser resource loading.
 
+---
+
 ## ⚙️ How it works
 
 1. The browser receives a `File` object from drag-and-drop or the file picker.
@@ -97,6 +107,8 @@ For simple use, opening `index.html` directly may work in your browser, although
 
 The core parser engine uses browser APIs including `File`, `DataView`, `TextDecoder`, Web Crypto, and object URLs. The project is intentionally dependency-light and does not require a backend.
 
+---
+
 ## 🔒 Privacy model
 
 Your files are processed in memory in the current browser session. Metadata Viewer does not upload files, create an account, or use tracking analytics. Preview object URLs are revoked when they are no longer needed.
@@ -104,6 +116,8 @@ Your files are processed in memory in the current browser session. Metadata View
 The page may load the ExifReader script from its configured CDN source for image EXIF parsing. If you need a fully disconnected environment, vendor that dependency locally before using the app offline.
 
 As with any browser tool, avoid opening sensitive files in a browser profile or environment you do not control.
+
+---
 
 ## 🗂️ Project structure
 
@@ -115,6 +129,8 @@ Metadata-Viewer/
 ├── package.json  # Local development commands and project metadata
 └── README.md     # Documentation
 ```
+
+---
 
 ## 👨‍💻 Development
 
@@ -134,20 +150,7 @@ When adding a parser or metadata field:
 4. Verify both desktop and mobile layouts.
 5. Run `npm run lint` before opening a pull request.
 
-## 🤝 Contributing
-
-Issues and pull requests are welcome. Please include:
-
-- The file type and sample metadata structure involved.
-- Reproduction steps and browser details.
-- A small fixture when it can be shared safely.
-- Screenshots for visible UI changes.
-
-Do not commit private files or samples containing personal metadata.
-
-## 📜 License
-
-MIT. See the repository metadata for details.
+---
 
 ## 👤 Developer
 
@@ -163,3 +166,24 @@ MIT. See the repository metadata for details.
   <img src="https://img.shields.io/badge/akashpramanik422%40gmail.com-D14836?style=flat&logo=gmail&logoColor=white"/>
 </a>
 </p>
+
+---
+
+## 🤝 Contributing
+
+Issues and pull requests are welcome. Please include:
+
+- The file type and sample metadata structure involved.
+- Reproduction steps and browser details.
+- A small fixture when it can be shared safely.
+- Screenshots for visible UI changes.
+
+Do not commit private files or samples containing personal metadata.
+
+---
+
+## 📜 License
+
+MIT. See the repository metadata for details.
+
+---
