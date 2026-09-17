@@ -210,6 +210,27 @@ body {
   margin-bottom: 20px;
   font-size: 15px;
 }
+.upload-formats-label {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  clip-path: inset(0 100% 0 0);
+  animation: formatsTypewriter 8s steps(68, end) infinite;
+}
+@keyframes formatsTypewriter {
+  0%, 8% { clip-path: inset(0 100% 0 0); }
+  48%, 68% { clip-path: inset(0 0 0 0); }
+  96% { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 0 0 100%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .upload-formats-label {
+    animation: none;
+    clip-path: none;
+  }
+}
 .format-chips {
   display: flex;
   flex-wrap: wrap;
