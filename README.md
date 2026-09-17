@@ -1,71 +1,148 @@
 # Metadata Viewer
 
-A **100% offline, privacy-first** universal file & media metadata analyzer that runs entirely in your browser.
-No uploads, no tracking, no server processing — your files never leave your computer.
+> Inspect the hidden details inside your files without uploading them anywhere.
 
-Drop any file (or click to browse) and instantly inspect its embedded metadata: EXIF, GPS, XMP, IPTC, ICC, ID3, MP4/MOV, MKV/WebM, FLAC, WAV, Ogg, AVI, RAR, 7-Zip, ZIP, PDF, Office documents (DOCX/PPTX/XLSX/ODF), EPUB, ISO images, fonts, executables, and more.
+Metadata Viewer is a privacy-first, browser-based analyzer for images, media, documents, archives, fonts, executables, and text. Drop in a file, preview it, explore structured metadata, search the report, and export what you need.
 
-## Features
+Everything runs locally in your browser.
 
-- **Universal format support** — images, video, audio, documents, archives, fonts, executables, text and more.
-- **Rich preview** — renders images, video, audio, PDF, fonts, cover-art thumbnails, and text files in-browser.
-- **Structured metadata** — focused cards: Camera & Settings, Date & Time, GPS (with live Google Maps link), Audio, Video, Documents, Archives, Files/Text, and more.
-- **Live search & filter** — search the "All Metadata" panel and filter across categories in real time.
-- **Hashes** — MD5, SHA-1 and SHA-256 computed locally via the Web Crypto API.
-- **Export / Copy** — export the entire metadata report as JSON or copy any field to the clipboard.
-- **Remove metadata** — scrub EXIF/XMP/IPTC from images and download the cleaned file locally.
-- **Download original** — download the unmodified file at any time.
-- **Responsive design** — works on desktop and mobile.
+![Privacy](https://img.shields.io/badge/privacy-100%25%20local-10b981?style=flat-square)
+![Runtime](https://img.shields.io/badge/runtime-browser%20only-2563eb?style=flat-square)
+![License](https://img.shields.io/badge/license-MIT-f59e0b?style=flat-square)
+
+## Why Metadata Viewer?
+
+Metadata can reveal camera settings, timestamps, locations, authors, software, document history, and more. Metadata Viewer gives you a quick way to inspect that information before sharing a file, without sending the file to a third-party service.
+
+- **Private by default**: files are read and analyzed in your browser.
+- **Broad format coverage**: one workflow for media, documents, archives, and technical files.
+- **Useful output**: structured categories, previews, hashes, search, copy, and JSON export.
+- **No build pipeline required**: the app is a small static web project.
+
+## What you can do
+
+| Workflow | Included |
+| --- | --- |
+| Inspect | EXIF, GPS, XMP, IPTC, ICC, ID3, container, document, archive, font, and executable metadata |
+| Preview | Images, video, audio, PDFs, fonts, cover art, and text files in the browser |
+| Find | Search and filter the complete metadata report in real time |
+| Verify | Calculate MD5, SHA-1, and SHA-256 hashes locally |
+| Export | Download the full report as JSON or copy individual values |
+| Clean | Remove supported EXIF/XMP/IPTC metadata from images and download a cleaned copy |
+| Compare | Keep the original file available for download while inspecting its metadata |
+| Adapt | Use the responsive interface on desktop or mobile, with light and dark themes |
 
 ## Supported formats
 
 ### Images
-JPEG, PNG, GIF, WebP, BMP, TIFF, HEIC/HEIF, ICO, SVG (metadata).
 
-### Video & audio
-MP4/MOV, MKV/WebM, AVI, MP3 (ID3v1/v2 + MPEG frame), FLAC, WAV/RIFF, OGG (Vorbis/Opus/Speex/Theora), M4A/AAC.
+JPEG, PNG, GIF, WebP, BMP, TIFF, HEIC/HEIF, ICO, and SVG metadata.
 
-### Documents
-PDF, DOC/DOCX, XLS/XLSX, PPT/PPTX, ODT/ODS/ODP, RTF, EPUB, TXT, CSV, Markdown, JSON, XML, source code (CSS/JS/HTML/TS).
+### Video and audio
 
-### Archives
-ZIP (incl. JAR/EPUB/DOCX/XLSX), RAR, 7-Zip, GZIP, TAR, ISO9660, CPIO, RPM, CramFS, Zstd, Bzip2, XZ, LZ4.
+MP4/MOV, MKV/WebM, AVI, MP3 with ID3v1/v2 and MPEG frame data, FLAC, WAV/RIFF, OGG with Vorbis/Opus/Speex/Theora, and M4A/AAC.
 
-### Fonts & executables
-OpenType / TrueType / WOFF / WOFF2 fonts, PE (EXE/DLL), ELF, WebAssembly, NE (Win 16-bit), LX (OS/2), CHM.
+### Documents and text
 
-## Run locally
+PDF, DOC/DOCX, XLS/XLSX, PPT/PPTX, ODT/ODS/ODP, RTF, EPUB, TXT, CSV, Markdown, JSON, XML, CSS, JavaScript, HTML, and TypeScript.
 
-The app is a single static folder. You only need a browser — and optionally a tiny static server
-(some browsers disable `file://` XHR/fetch). The only external dependency is the ExifReader CDN script,
-used solely for image EXIF parsing.
+### Archives and containers
+
+ZIP, JAR, EPUB, DOCX, XLSX, RAR, 7-Zip, GZIP, TAR, ISO9660, CPIO, RPM, CramFS, Zstd, Bzip2, XZ, and LZ4.
+
+### Fonts and executables
+
+OpenType, TrueType, WOFF, WOFF2, PE files such as EXE/DLL, ELF, WebAssembly, NE, LX, and CHM.
+
+## Quick start
+
+### Requirements
+
+- A modern browser with File API, Web Crypto, DataView, and TextDecoder support.
+- Node.js and npm only if you want to use the included convenience command.
+
+### Run with a local server
 
 ```bash
-cd path/to/Metadata-Viewer
-# any static server works; examples:
-npm i -g serve && serve .
-# or:
+git clone https://github.com/akash098p/Metadata-Viewer.git
+cd Metadata-Viewer
+npm start
+```
+
+Then open [http://localhost:8000](http://localhost:8000).
+
+If your local `serve` version does not accept the package script's port flag, use the compatible command directly:
+
+```bash
+npx serve . -l 8000
+```
+
+You can also use any static server, for example:
+
+```bash
 python -m http.server 8000
 ```
 
-Then open `http://localhost:8000` (or just open `index.html` directly in most browsers).
-
-## Project layout
-
-```
-Metadata-Viewer/
-  index.html    — shell: upload area, preview panel, metadata cards, quick actions
-  styles.css    — responsive design tokens, card/animations, mobile layout
-  script.js     — zero-dependency parser engine + UI wiring (runs in-browser)
-```
+For simple use, opening `index.html` directly may work in your browser, although a local server is more reliable for browser resource loading.
 
 ## How it works
 
-`script.js` reads files with the File API and parses their bytes with the native DataView and
-TextDecoder APIs — no external parsing libraries and no file upload. Format detection is done by
-magic-byte sniffing so mislabeled files are still identified correctly.
+1. The browser receives a `File` object from drag-and-drop or the file picker.
+2. `script.js` reads bounded portions or the full file in memory as needed.
+3. Format detection uses file signatures and metadata structures rather than trusting only the filename.
+4. Parsers decode fields into grouped categories for the interface.
+5. Previews and derived values such as hashes are generated locally.
 
-## Privacy
+The core parser engine uses browser APIs including `File`, `DataView`, `TextDecoder`, Web Crypto, and object URLs. The project is intentionally dependency-light and does not require a backend.
 
-Everything is processed **locally in-memory**. Files are revoked with `URL.revokeObjectURL` after
-previewing, and no data is sent over the network except the optional ExifReader CDN script.
+## Privacy model
+
+Your files are processed in memory in the current browser session. Metadata Viewer does not upload files, create an account, or use tracking analytics. Preview object URLs are revoked when they are no longer needed.
+
+The page may load the ExifReader script from its configured CDN source for image EXIF parsing. If you need a fully disconnected environment, vendor that dependency locally before using the app offline.
+
+As with any browser tool, avoid opening sensitive files in a browser profile or environment you do not control.
+
+## Project structure
+
+```text
+Metadata-Viewer/
+├── index.html    # Application shell and accessible upload workflow
+├── styles.css    # Theme tokens, responsive layout, states, and animations
+├── script.js     # File detection, parsers, previews, and UI behavior
+├── package.json  # Local development commands and project metadata
+└── README.md     # Documentation
+```
+
+## Development
+
+This project uses vanilla HTML, CSS, and JavaScript. No bundler or framework is required.
+
+Check JavaScript syntax with:
+
+```bash
+npm run lint
+```
+
+When adding a parser or metadata field:
+
+1. Keep parsing local and bounded where possible.
+2. Preserve the existing output shape used by the metadata cards and JSON export.
+3. Add a representative fixture or manual test case for the format.
+4. Verify both desktop and mobile layouts.
+5. Run `npm run lint` before opening a pull request.
+
+## Contributing
+
+Issues and pull requests are welcome. Please include:
+
+- The file type and sample metadata structure involved.
+- Reproduction steps and browser details.
+- A small fixture when it can be shared safely.
+- Screenshots for visible UI changes.
+
+Do not commit private files or samples containing personal metadata.
+
+## License
+
+MIT. See the repository metadata for details.
