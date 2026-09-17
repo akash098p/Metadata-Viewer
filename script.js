@@ -94,6 +94,8 @@ const runTypewriter = () => {
     renderTypewriter();
     return;
   }
+  const isLastCharacter = typewriterIndex === typewriterText.length - 1;
+  const characterDelay = typewriterMode === "deleting" ? 22 : 48;
   renderTypewriter();
   if (typewriterMode === "typing") {
     if (typewriterIndex < typewriterText.length) typewriterIndex += 1;
@@ -108,7 +110,11 @@ const runTypewriter = () => {
     typewriterIndex = 0;
   }
   const pause =
-    typewriterIndex === typewriterText.length || typewriterIndex === 0 ? 1400 : 48;
+    isLastCharacter
+      ? characterDelay
+      : typewriterIndex === typewriterText.length || typewriterIndex === 0
+      ? 1400
+      : characterDelay;
   setTimeout(runTypewriter, pause);
 };
 runTypewriter();
