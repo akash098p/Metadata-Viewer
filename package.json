@@ -1,0 +1,28 @@
+{
+  "name": "metadata-viewer",
+  "version": "1.0.0",
+  "description": "A 100% offline, privacy-first universal file & media metadata analyzer that runs in your browser.",
+  "scripts": {
+    "start": "npx serve . --single --port 8000",
+    "lint": "node --check script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akash098p/Metadata-Viewer.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "metadata",
+    "exif",
+    "xmp",
+    "id3",
+    "mp4",
+    "video",
+    "audio",
+    "pdf",
+    "office",
+    "zip",
+    "privacy",
+    "offline"
+  ]
+}
