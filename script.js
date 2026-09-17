@@ -48,9 +48,24 @@ const uploadArea = $("uploadArea"),
   removeMetadataBtn = $("removeMetadataBtn"),
   exportJsonBtn = $("exportJsonBtn"),
   copyJsonBtn = $("copyJsonBtn"),
+  themeToggle = $("themeToggle"),
   toastContainer = document.createElement("div");
 toastContainer.className = "toast-container";
 document.body.appendChild(toastContainer);
+const savedTheme = localStorage.getItem("metadata-viewer-theme");
+const applyTheme = (theme) => {
+  const isDark = theme === "dark";
+  document.documentElement.dataset.theme = isDark ? "dark" : "light";
+  themeToggle.setAttribute("aria-pressed", String(isDark));
+  themeToggle.setAttribute(
+    "aria-label",
+    isDark ? "Switch to light mode" : "Switch to dark mode",
+  );
+  themeToggle.querySelector(".theme-toggle-label").textContent = isDark
+    ? "Dark"
+    : "Light";
+};
+applyTheme(savedTheme === "dark" ? "dark" : "light");
 const det = {
   fileName: $("fileName"),
   fileFormat: $("fileFormat"),
@@ -306,6 +321,11 @@ const showMediaPreview = (src, type) => {
 };
 
 /* ----------------------------- Event wiring ------------------------------ */
+themeToggle.addEventListener("click", () => {
+  const nextTheme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  applyTheme(nextTheme);
+  localStorage.setItem("metadata-viewer-theme", nextTheme);
+});
 uploadArea.addEventListener("click", () => fileInput.click());
 uploadArea.addEventListener("keydown", (e) => {
   if (e.key === "Enter" || e.key === " ") {
