@@ -66,6 +66,52 @@ const applyTheme = (theme) => {
     : "Light";
 };
 applyTheme(savedTheme === "dark" ? "dark" : "light");
+const typingFirst = document.querySelector(".typing-first");
+const typingSecond = document.querySelector(".typing-second");
+const typewriterFirstText = "Works with images • video • audio •";
+const typewriterSecondText = "documents • PDFs • archives • text";
+const typewriterText = typewriterFirstText + typewriterSecondText;
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let typewriterMode = "typing";
+let typewriterIndex = 0;
+const renderTypewriter = () => {
+  const firstLength = typewriterFirstText.length;
+  if (typewriterMode === "typing") {
+    const visibleText = typewriterText.slice(0, typewriterIndex);
+    typingFirst.textContent = visibleText.slice(0, firstLength);
+    typingSecond.textContent = visibleText.slice(firstLength);
+  } else if (typewriterIndex < firstLength) {
+    typingFirst.textContent = typewriterFirstText.slice(typewriterIndex);
+    typingSecond.textContent = typewriterSecondText;
+  } else {
+    typingFirst.textContent = "";
+    typingSecond.textContent = typewriterSecondText.slice(typewriterIndex - firstLength);
+  }
+};
+const runTypewriter = () => {
+  if (prefersReducedMotion) {
+    typewriterIndex = typewriterText.length;
+    renderTypewriter();
+    return;
+  }
+  renderTypewriter();
+  if (typewriterMode === "typing") {
+    if (typewriterIndex < typewriterText.length) typewriterIndex += 1;
+    else {
+      typewriterMode = "deleting";
+      typewriterIndex = 0;
+    }
+  } else if (typewriterIndex < typewriterText.length) {
+    typewriterIndex += 1;
+  } else {
+    typewriterMode = "typing";
+    typewriterIndex = 0;
+  }
+  const pause =
+    typewriterIndex === typewriterText.length || typewriterIndex === 0 ? 1400 : 48;
+  setTimeout(runTypewriter, pause);
+};
+runTypewriter();
 const det = {
   fileName: $("fileName"),
   fileFormat: $("fileFormat"),

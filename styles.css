@@ -214,22 +214,10 @@ body {
   display: inline-block;
   max-width: 100%;
   overflow: hidden;
-  white-space: nowrap;
   vertical-align: bottom;
-  clip-path: inset(0 100% 0 0);
-  animation: formatsTypewriter 8s steps(68, end) infinite;
 }
-@keyframes formatsTypewriter {
-  0%, 8% { clip-path: inset(0 100% 0 0); }
-  48%, 68% { clip-path: inset(0 0 0 0); }
-  96% { clip-path: inset(0 0 0 0); }
-  100% { clip-path: inset(0 0 0 100%); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .upload-formats-label {
-    animation: none;
-    clip-path: none;
-  }
+.mobile-break {
+  display: none;
 }
 .format-chips {
   display: flex;
@@ -717,6 +705,19 @@ body {
   }
   .upload-formats {
     margin-bottom: 12px;
+    overflow: visible;
+    text-align: center;
+  }
+  .upload-formats-label {
+    font-size: 13px;
+    white-space: normal;
+    transform: none;
+  }
+  .typing-gap {
+    display: none;
+  }
+  .mobile-break {
+    display: block;
   }
   .quick-actions {
     flex-direction: column;
