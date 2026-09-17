@@ -28,24 +28,24 @@
             />
             <path
               d="M3 26h20M3 30h20M3 34h14"
-              stroke="#2563eb"
+              stroke="var(--primary)"
               stroke-width="1.6"
               stroke-linecap="round"
             />
-            <circle cx="6.5" cy="18.5" r="1.8" fill="#2563eb" />
+            <circle cx="6.5" cy="18.5" r="1.8" fill="var(--primary)" />
             <rect
               x="2.8"
               y="15.5"
               width="7.4"
               height="1.6"
               rx=".8"
-              fill="#2563eb"
+              fill="var(--primary)"
             />
-            <path d="M12 19a3 3 0 0 1 6 0v1a3 3 0 0 1-6 0z" fill="#7c3aed" />
+            <path d="M12 19a3 3 0 0 1 6 0v1a3 3 0 0 1-6 0z" fill="var(--secondary)" />
             <defs>
               <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
-                <stop offset="0%" style="stop-color: #2563eb" />
-                <stop offset="100%" style="stop-color: #7c3aed" />
+                <stop offset="0%" style="stop-color: var(--primary)" />
+                <stop offset="100%" style="stop-color: var(--secondary)" />
               </linearGradient>
             </defs>
           </svg>
@@ -56,7 +56,8 @@
             </p>
           </div>
         </div>
-        <div class="privacy-badge header-privacy">
+        <div class="header-tools">
+          <div class="privacy-badge header-privacy">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path
               d="M8 1L3 3V7C3 10.5 5.5 13.5 8 14C10.5 13.5 13 10.5 13 7V3L8 1Z"
@@ -72,6 +73,12 @@
             />
           </svg>
           <span>No uploads · No tracking</span>
+          </div>
+          <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+            <span class="theme-icon theme-icon-sun" aria-hidden="true">☀</span>
+            <span class="theme-icon theme-icon-moon" aria-hidden="true">☾</span>
+            <span class="theme-toggle-label">Light</span>
+          </button>
         </div>
       </header>
 
@@ -93,20 +100,20 @@
             >
               <path
                 d="M22 7H42L54 19V57a4 4 0 0 0-4 4H18a4 4 0 0 0-4-4V29 23 7Z"
-                fill="#2563eb"
+                fill="var(--primary)"
                 opacity=".12"
               />
-              <path d="M54 19H42V7.8L54 19Z" fill="#2563eb" />
+              <path d="M54 19H42V7.8L54 19Z" fill="var(--primary)" />
               <path
                 d="M20 29V9a2 2 0 0 1 2-2h2M20 29a4 4 0 0 1 0 6 8 8 0 0 1 0-14 4 4 0 0 1 0 8z"
-                fill="#2563eb"
+                fill="var(--primary)"
               />
               <circle
                 cx="40"
                 cy="34"
                 r="7"
                 fill="none"
-                stroke="#2563eb"
+                stroke="var(--primary)"
                 stroke-width="2"
               />
               <rect
@@ -115,18 +122,18 @@
                 width="10"
                 height="16"
                 rx="2"
-                fill="#2563eb"
+                fill="var(--primary)"
                 opacity=".4"
               />
               <path
                 d="M20 43h20M20 49h20M15 55h26"
-                stroke="#1e3a8a"
+                stroke="var(--accent-contrast)"
                 stroke-width="2"
                 stroke-linecap="round"
               />
               <path
                 d="M26 47v-2m8 2v-2"
-                stroke="#1e3a8a"
+                stroke="var(--accent-contrast)"
                 stroke-width="2"
                 stroke-linecap="round"
               />
